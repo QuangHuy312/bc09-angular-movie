@@ -1,0 +1,13 @@
+<app-cover></app-cover>
+
+<button>Thông Tin</button>
+
+<button>Đánh Giá</button>
+
+<ng-container [ngSwitch]="activeTabs">
+  <app-detail *ngSwitchCase="'detail'"></app-detail>
+
+  <app-review *ngSwitchCase="'review'"></app-review>
+
+  <app-booking *ngSwitchCase="'booking'"></app-booking>
+</ng-container>

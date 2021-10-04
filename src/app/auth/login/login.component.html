@@ -1,0 +1,114 @@
+<h1>Login Form</h1>
+
+<!-- status của controls
+  pristine:true => user chưa thay đổi giá trị của controls
+  dirty:true => user đã thay đổi giá trị của controls
+
+  untouched :true =>user chưa focus vào control
+  touched:true =>user đã focus vào control
+
+  valid:true=> nếu control này có validation và nó hợp lệ
+  invalid:true=> nếu control có validation và không hợp lệ
+
+  errors:object chứa thông tin các lỗi validation control đang có
+
+  Directives để validation
+    required :yêu cầu control k dc bỏ trống
+    minlength: ------ ít nhất n ký tự
+    maxlength :------ nhiều nhất n ký tự
+    email:--- thỏa mãn format của email
+    pattern : thỏa mãn format khớp với pattern ( vd :regex)
+-->
+
+<form #loginForm="ngForm" (ngSubmit)="handleSubmit()">
+  <!-- để đăng ký ta khai báo cho ngMdel là 1 attribute name -->
+  <!-- <div>
+    <label>Tài khoản</label>
+    <input
+      type="text"
+      ngModel
+      name="taiKhoan"
+      required
+      minlength="5"
+      #taiKhoan="ngModel"
+    />
+    <div *ngIf="taiKhoan.invalid && (taiKhoan.touched || taiKhoan.dirty)">
+      <span *ngIf="taiKhoan.errors?.required">
+        Tài khoản không dc để trống
+      </span>
+
+      <span *ngIf="taiKhoan.errors?.minlength">
+        Tài khoản ít nhất {{ taiKhoan.errors?.minlength.requiredLength }} ký tự
+      </span>
+    </div>
+  </div> -->
+
+  <mat-form-field appearance="outline" class="block">
+    <mat-label>Tài khoản</mat-label>
+    <input
+      matInput
+      placeholder="Tài khoản"
+      ngModel
+      name="taiKhoan"
+      #taiKhoan="ngModel"
+      required
+      minlength="5"
+    />
+    <mat-error *ngIf="taiKhoan.errors?.required"
+      >Tài khoản không dc để trống</mat-error
+    >
+    <mat-error *ngIf="taiKhoan.errors?.minlength">
+      Tài khoản ít nhất {{ taiKhoan.errors?.minlength.requiredLength }} ký tự
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="block">
+    <mat-label>Mật khẩu</mat-label>
+    <input
+      matInput
+      placeholder="Mật khẩu"
+      ngModel
+      name="matKhau"
+      #matKhau="ngModel"
+      required
+      pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+    />
+    <mat-error *ngIf="matKhau.errors?.required"
+      >Mật khẩu không dc để trống</mat-error
+    >
+    <mat-error *ngIf="matKhau.errors?.pattern">
+      Mật khẩu không đúng định dạng
+    </mat-error>
+  </mat-form-field>
+
+  <!-- <div>
+    <label>Mật khẩu</label>
+    <input
+      type="text"
+      ngModel
+      name="matKhau"
+      required
+      #matKhau="ngModel"
+      pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+    />
+    <div *ngIf="matKhau.invalid && (matKhau.touched || matKhau.dirty)">
+      <span *ngIf="matKhau.errors?.required"> mật khẩu không dc để trống </span>
+
+      <span *ngIf="matKhau.errors?.pattern">
+        mật khẩu không đúng định dạng
+      </span>
+    </div>
+  </div> -->
+  <button mat-raised-button color="primary">submit</button>
+  <br />
+  <pre>
+    {{ loginForm.value | json }}
+  </pre>
+  <!-- <pre>
+    {{ loginForm.controls.taiKhoan.errors | json }}
+  </pre> -->
+
+  <pre>
+    {{ loginForm.errors | json }}
+  </pre>
+</form>

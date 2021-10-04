@@ -1,0 +1,49 @@
+<h1>Register Form</h1>
+
+<form [formGroup]="registerForm" (ngSubmit)="handleSubmit()">
+  <mat-form-field appearance="outline" class="block">
+    <mat-label>Tài khoản</mat-label>
+    <input matInput placeholder="Tài khoản" formControlName="taiKhoan" />
+    <mat-error *ngIf="registerForm.get('taiKhoan')?.errors?.required"
+      >Tài khoản không dc để trống</mat-error
+    >
+    <mat-error *ngIf="registerForm.get('taiKhoan')?.errors?.minlength"
+      >Tài khoản ít nhất 5 ký tự</mat-error
+    >
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="block">
+    <mat-label>Mật Khẩu</mat-label>
+    <input matInput placeholder="Mật Khẩu" formControlName="matKhau" />
+    <mat-error *ngIf="registerForm.get('matKhau')?.errors?.required"
+      >Mật khẩu không dc để trống
+    </mat-error>
+    <mat-error *ngIf="registerForm.get('matKhau')?.errors?.pattern"
+      >Mật khẩu không đúng định dạng</mat-error
+    >
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="block">
+    <mat-label>Email</mat-label>
+    <input matInput placeholder="Email" formControlName="email" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="block">
+    <mat-label>Họ Tên</mat-label>
+    <input matInput placeholder="Họ Tên" formControlName="hoTen" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="block">
+    <mat-label>Số điện thoại</mat-label>
+    <input matInput placeholder="Số điện thoại" formControlName="soDt" />
+  </mat-form-field>
+
+  <mat-error *ngIf="error">{{ error }} </mat-error>
+  <button [disabled]="isLoading" mat-raised-button color="primary">
+    submit
+  </button>
+
+  <pre>
+    {{ registerForm.value | json }}
+  </pre>
+</form>

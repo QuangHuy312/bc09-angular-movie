@@ -1,0 +1,6 @@
+<h1>Movie showing</h1>
+
+<div *ngFor="let movie of movies">
+  <span>{{ movie.tenPhim }}</span>
+  <button routerLink="/movie/{{ movie.maPhim }}">Chi tiết</button>
+</div>
