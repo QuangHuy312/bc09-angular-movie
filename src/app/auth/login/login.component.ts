@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/_core/services/auth.service';
 
 @Component({
@@ -11,7 +11,11 @@ import { AuthService } from 'src/app/_core/services/auth.service';
 export class LoginComponent implements OnInit {
   @ViewChild('loginForm') loginForm!: NgForm;
 
-  constructor(private _authService: AuthService, private _router: Router) {}
+  constructor(
+    private _authService: AuthService,
+    private _router: Router,
+    private _activatedRoute: ActivatedRoute
+  ) {}
   handleSubmit() {
     if (this.loginForm.invalid) {
       return;
@@ -19,7 +23,10 @@ export class LoginComponent implements OnInit {
     this._authService.login(this.loginForm.value).subscribe({
       next: (data) => {
         localStorage.setItem('user', JSON.stringify(data));
-        this._router.navigateByUrl('/');
+
+        const { redirectTo } = this._activatedRoute.snapshot.queryParams;
+        this._authService.currenUser = data;
+        this._router.navigateByUrl(redirectTo || '/');
       },
       error: (err) => {
         console.log(err);

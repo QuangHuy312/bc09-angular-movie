@@ -80,4 +80,8 @@ export class RegisterComponent implements OnInit {
     });
     console.log(this.registerForm.value);
   }
+
+  checkDirTyForm(): boolean {
+    return this.registerForm.dirty;
+  }
 }

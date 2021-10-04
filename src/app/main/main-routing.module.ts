@@ -1,19 +1,28 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { MainComponent } from './main.component';
 
 const routes: Routes = [
-  // Movie detail Page
-  {
-    path: 'movie/:movieId',
-    loadChildren: () =>
-      import('./movie/movie.module').then((m) => m.MovieModule),
-  },
-
-  // Home Page
   {
     path: '',
-    loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
+    component: MainComponent,
+    children: [
+      {
+        path: 'movie/:movieId',
+        loadChildren: () =>
+          import('./movie/movie.module').then((m) => m.MovieModule),
+      },
+
+      // Home Page
+      {
+        path: '',
+        loadChildren: () =>
+          import('./home/home.module').then((m) => m.HomeModule),
+      },
+    ],
   },
+
+  // Movie detail Page
 ];
 
 @NgModule({
